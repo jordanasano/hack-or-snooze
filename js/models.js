@@ -1,5 +1,6 @@
 "use strict";
 
+const UPDATE_FAVORITE = "https://hack-or-snooze-v3.herokuapp.com/users/username/favorites/storyId"
 const BASE_URL = "https://hack-or-snooze-v3.herokuapp.com";
 const POST_STORY_URL = "https://hack-or-snooze-v3.herokuapp.com/stories"
 
@@ -77,7 +78,7 @@ class StoryList {
   async addStory(user, newStory) {
     const token = user.loginToken;
     console.log("token = ", token, "newStory = ", newStory);
-    const storyObj = await axios.post(POST_STORY_URL, 
+    const storyObj = await axios.post(POST_STORY_URL,
       { "token": token, "story": newStory });
     console.log(storyObj);
 
@@ -169,6 +170,17 @@ class User {
       },
       response.data.token
     );
+  }
+
+    async addFavorite(story){
+      const userToken = currentUser.loginToken
+      const storyId = story.storyId
+      const username = currentUser.username
+      await axios.post(`https://hack-or-snooze-v3.herokuapp.com/users/${username}/favorites/${storyId}`,
+      {"token": userToken} )
+      currentUser = await axios.get(`https://hack-or-snooze-v3.herokuapp.com/users/${username}` )
+
+
   }
 
   /** When we already have credentials (token & username) for a user,
