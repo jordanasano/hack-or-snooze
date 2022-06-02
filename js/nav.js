@@ -31,6 +31,7 @@ $navLogin.on("click", navLoginClick);
 
 function updateNavOnLogin() {
   console.debug("updateNavOnLogin");
+  // add .main-nav-links into nav tag between .navbar-brand and .navbar-right
   $(".main-nav-links").show();
   $navLogin.hide();
   $navLogOut.show();

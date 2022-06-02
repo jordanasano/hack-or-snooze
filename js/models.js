@@ -1,6 +1,7 @@
 "use strict";
 
 const BASE_URL = "https://hack-or-snooze-v3.herokuapp.com";
+const POST_STORY_URL = "https://hack-or-snooze-v3.herokuapp.com/stories"
 
 /******************************************************************************
  * Story: a single story in the system
@@ -73,8 +74,13 @@ class StoryList {
    * Returns the new Story instance
    */
 
-  async addStory( /* user, newStory */) {
-    // UNIMPLEMENTED: complete this function!
+  async addStory(user, newStory) {
+    const token = user.loginToken;
+    console.log("token = ", token, "newStory = ", newStory);
+    const storyObj = await axios.post(POST_STORY_URL, {"token":token, "story": newStory});
+    console.log(storyObj);
+
+    return new Story(storyObj.data.story);
   }
 }
 
