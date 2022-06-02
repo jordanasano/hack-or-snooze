@@ -38,9 +38,11 @@ function updateNavOnLogin() {
   $navUserProfile.text(`${currentUser.username}`).show();
 }
 
-function navSubmitClick(){
-  $("#add-story-form").show()
-
+/** When the submit link in the nav bar is clicked, shows
+ *  the #add-story-form.
+ */
+function navSubmitClick() {
+  $("#add-story-form").show();
 }
 
-$("#nav-submit-story").on("click",navSubmitClick)
+$("#nav-submit-story").on("click", navSubmitClick);

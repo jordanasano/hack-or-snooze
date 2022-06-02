@@ -21,7 +21,7 @@ async function getAndShowStoriesOnStart() {
 
 function generateStoryMarkup(story) {
   // console.debug("generateStoryMarkup", story);
-
+  console.log('generateStoryMarkup ran. story=', story);
   const hostName = story.getHostName();
   return $(`
       <li id="${story.storyId}">
@@ -50,3 +50,24 @@ function putStoriesOnPage() {
 
   $allStoriesList.show();
 }
+
+/** Gets user input from #add-story-form, passes input into
+ *  addStory, then invokes putStoriesOnPage
+ */
+async function getAndDisplayStory(evt) {
+  evt.preventDefault();
+  const author = $("#author-name").val();
+  const title = $("#story-title").val();
+  const url = $("#story-url").val();
+
+  console.log('author=', author, 'title=', title, 'url=', url);
+  console.log("storyList=", storyList);
+
+  const newStoryInstance = await storyList.addStory(currentUser, { author, title, url });
+  storyList.stories.unshift(newStoryInstance);
+  console.log("storyList after addStory=", storyList)
+
+  putStoriesOnPage();
+}
+
+$("#add-story-form").on('submit', getAndDisplayStory);

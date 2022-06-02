@@ -77,7 +77,8 @@ class StoryList {
   async addStory(user, newStory) {
     const token = user.loginToken;
     console.log("token = ", token, "newStory = ", newStory);
-    const storyObj = await axios.post(POST_STORY_URL, {"token":token, "story": newStory});
+    const storyObj = await axios.post(POST_STORY_URL, 
+      { "token": token, "story": newStory });
     console.log(storyObj);
 
     return new Story(storyObj.data.story);
@@ -96,13 +97,13 @@ class User {
    */
 
   constructor({
-                username,
-                name,
-                createdAt,
-                favorites = [],
-                ownStories = []
-              },
-              token) {
+    username,
+    name,
+    createdAt,
+    favorites = [],
+    ownStories = []
+  },
+    token) {
     this.username = username;
     this.name = name;
     this.createdAt = createdAt;
