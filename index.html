@@ -37,12 +37,43 @@
   <div class="navbar-brand">
     <a class="nav-link" href="#" id="nav-all">Hack or Snooze</a>
   </div>
+  <div class = "main-nav-links hidden " style="display: none;">
+    <a class="nav-link" href="#" id="nav-submit-story">submit</a>
+    <a class="nav-link" href="#" id="nav-favorites">favorites</a>
+    <a class="nav-link" href="#" id="nav-my-stories">my stories</a>
+
+  </div>
   <div class="nav-right">
     <a class="nav-link" href="#" id="nav-login">login/signup</a>
     <a class="nav-link" href="#" id="nav-user-profile"></a>
     <a class="hidden" id="nav-logout" href="#"><small>(logout)</small></a>
   </div>
 </nav>
+<div class = "add-story-input container">
+  <form id="add-story-form" class="account-form row hidden">
+    <div class="add-story-input">
+      <label  for = "auther name">auther name</label>
+      <input  type = "text" id="auther-name" required>
+
+    </div>
+    <div class="add-story-input">
+      <label  for="story-title">title</label>
+      <input  type="text" id="story-title" required>
+    </div>
+
+    <div class="add-story-input">
+      <label  for = "story-url">story url</label>
+      <input  type="url" id="story-url" required>
+    </div>
+
+    <button type="submit">submit</button>
+  </form>
+
+</div>
+
+
+
+
 
 <!-- area for stories (all stories, user stories, favorites) -->
 <section class="stories-container container">
