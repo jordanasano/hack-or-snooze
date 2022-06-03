@@ -11,8 +11,8 @@ function navAllStories(evt) {
   evt.preventDefault();
   hidePageComponents();
   putStoriesOnPage();
-  $(".stories-container").show();
-  $(".stories-container").css("display", "block");
+  $storiescontainer.show();
+  $storiescontainer.css("display", "block");
 
 
 }
@@ -36,7 +36,7 @@ $navLogin.on("click", navLoginClick);
 function updateNavOnLogin() {
   console.debug("updateNavOnLogin");
   // add .main-nav-links into nav tag between .navbar-brand and .navbar-right
-  $(".main-nav-links").show();
+  $mainnavlinks.show();
   $navLogin.hide();
   $navLogOut.show();
   $navUserProfile.text(`${currentUser.username}`).show();
@@ -47,19 +47,19 @@ function updateNavOnLogin() {
  */
 function navSubmitClick() {
   hidePageComponents();
-  $("#add-story-form").show();
+  $addstoryform.show();
   $addstoryinput.show();
 }
 
-$("#nav-submit-story").on("click", navSubmitClick);
+$navsubmitstory.on("click", navSubmitClick);
 
 /** calls hidepagecomponents which hides everything on page then shows
  * favorites container then fills favorites container by calling
  * put favorites on page */
 function navFavoriteClick() {
   hidePageComponents();
-  $(".favorites-container").show();
+  $favoritesContainer.show();
   putFavoritesOnPage();
 }
 
-$("#nav-favorites").on("click", navFavoriteClick);
+$navfavorites.on("click", navFavoriteClick);

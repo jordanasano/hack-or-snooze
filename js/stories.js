@@ -52,14 +52,6 @@ function generateStarClass(story) {
   return 'far fa-star';
 }
 
-
-/** finds story based on star click calls fav or unfav */
-function starHandleClick(evt) {
-  const currStar = evt.target;
-  const targStory = findStory(currStar);
-  favOrUnfav(currStar, targStory);
-}
-
 /** Takes in the i tag of currStar, finds the clost li's id, then
  *  finds the story instance with that id and returns it.
  */
@@ -92,9 +84,11 @@ function findStory(currStar) {
  */
 function favOrUnfav(currStar, targStory) {
   const starClass = currStar.classList[0];
-  starClass === 'far' ?
+  if (starClass === 'far') {
     updateAndAddFavorite(currStar, targStory)
-    : updateAndUnFavorite(currStar, targStory);
+  } else {
+    updateAndUnFavorite(currStar, targStory);
+  }
 }
 
 /** Takes in the i tag of currStar and the targStory instance,
@@ -118,13 +112,23 @@ function updateAndUnFavorite(currStar, targStory) {
  */
 function updateStar(currStar) {
   const starClass = currStar.classList[0];
-  starClass === 'far' ?
-    $(currStar).removeClass("far fa-star").addClass("fas fa-star")
-    : $(currStar).removeClass("fas fa-star").addClass("far fa-star");
+  if (starClass === 'far') {
+    $(currStar).removeClass("far fa-star").addClass("fas fa-star");
+    // could refactor to use toggleClass
+  } else {
+    $(currStar).removeClass("fas fa-star").addClass("far fa-star");
+    // could refactor to use toggleClass
+  }
 }
 
+/** finds story based on star click calls fav or unfav */
+function starHandleClick(evt) {
+  const currStar = evt.target;
+  const targStory = findStory(currStar);
+  favOrUnfav(currStar, targStory);
+}
 
-$("#all-stories-list").on("click", [".far", ".fas"], starHandleClick);
+$allStoriesList.on("click", [".far", ".fas"], starHandleClick);
 
 /** takes in evt finds story and updates and unfavorites from favorites page */
 function favoritesStarHandleClick(evt) {
@@ -133,19 +137,19 @@ function favoritesStarHandleClick(evt) {
   console.log("targStory in favoritesStarHandleClick = ", targStory);
   updateAndUnFavorite(currStar, targStory);
 }
-$("#all-favorites-list").on("click", ".fas", favoritesStarHandleClick);
+$allfavoriteslist.on("click", ".fas", favoritesStarHandleClick);
 
 /** Gets list of favorites from server, generates their HTML, and puts on page. */
 
 function putFavoritesOnPage() {
   console.debug("putFavoritesOnPage");
   const favoritesList = currentUser.favorites;
-  $("#all-favorites-list").empty();
+  $allfavoriteslist.empty();
 
   // loop through all of our stories and generate HTML for them
   for (let favorite of favoritesList) {
     const $favorite = generateStoryMarkup(favorite);
-    $("#all-favorites-list").append($favorite);
+    $allfavoriteslist.append($favorite);
   }
 
   $favoritesContainer.show();
@@ -183,7 +187,8 @@ async function getAndDisplayStory(evt) {
   storyList.stories.unshift(newStoryInstance);
   console.log("storyList after addStory=", storyList);
 
+  hidePageComponents();
   putStoriesOnPage();
 }
 
-$("#add-story-form").on('submit', getAndDisplayStory);
+$addstoryform.on('submit', getAndDisplayStory);

@@ -1,8 +1,8 @@
 "use strict";
 
-const UPDATE_FAVORITE = "https://hack-or-snooze-v3.herokuapp.com/users/username/favorites/storyId";
 const BASE_URL = "https://hack-or-snooze-v3.herokuapp.com";
-const POST_STORY_URL = "https://hack-or-snooze-v3.herokuapp.com/stories";
+const UPDATE_FAVORITE = BASE_URL + "/users/username/favorites/storyId";
+const POST_STORY_URL = BASE_URL + "/stories";
 
 /******************************************************************************
  * Story: a single story in the system
@@ -171,23 +171,25 @@ class User {
       response.data.token
     );
   }
+
   /** takes in story instance and adds story instance to currentUser favorites
    *  array and saves user story favorites to server */
-  addFavorite(story) {
+  async addFavorite(story) {
     const userToken = currentUser.loginToken;
     const storyId = story.storyId;
     const username = currentUser.username;
     console.log("userToken in addFavorite = ", userToken);
     console.log("storyId in addFavorite = ", storyId);
     console.log('username in addFavorite = ', username);
-    const post_favorite_url = `https://hack-or-snooze-v3.herokuapp.com/users/${username}/favorites/${storyId}`;
+    const post_fav_url = BASE_URL + `/users/${username}/favorites/${storyId}`;
 
-    axios.post(post_favorite_url, { "token": userToken });
+    await axios.post(post_fav_url, { "token": userToken });
     this.favorites.unshift(story);
   }
+
   /** takes in story instance and removes story instance from currentUser
    *  favorites array and removes user story favorite from server */
-  unFavorite(story) {
+  async unFavorite(story) {
     console.log("story in unFavorite = ", story);
     const userToken = currentUser.loginToken;
     const storyId = story.storyId;
@@ -195,10 +197,12 @@ class User {
     console.log("userToken in unFavorite = ", userToken);
     console.log("storyId in unFavorite = ", storyId);
     console.log('username in unFavorite = ', username);
-    const un_favorite_url = `https://hack-or-snooze-v3.herokuapp.com/users/${username}/favorites/${storyId}?token=${userToken}`;
+    const path = `/users/${username}/favorites/${storyId}?token=${userToken}`;
+    const un_fav_url = BASE_URL + path;
 
-    axios.delete(un_favorite_url);
-    currentUser.favorites = currentUser.favorites.filter(story => story.storyId !== storyId);
+    await axios.delete(un_fav_url);
+    currentUser.favorites = currentUser.favorites.filter(story =>
+      story.storyId !== storyId);
   }
 
   /** When we already have credentials (token & username) for a user,
