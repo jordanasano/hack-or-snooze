@@ -52,7 +52,7 @@
         <label for="author-name">author name</label>
         <input type="text" id="author-name" required>
       </div>
-      
+
       <div class="add-story-input">
         <label for="story-title">title</label>
         <input type="text" id="story-title" required>
@@ -80,6 +80,16 @@
 
     <!-- List of all stories -->
     <ol id="all-stories-list" class="stories-list"></ol>
+
+  </section>
+
+  <section class="favorites-container container hidden">
+
+    <!-- loading message (removed by JS after stories loaded) -->
+    <div id="favorites-loading-msg">Loading&hellip;</div>
+
+    <!-- List of all favorite stories -->
+    <ol id="all-favorites-list-list" class="favorites-list"></ol>
 
   </section>
 

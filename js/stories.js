@@ -21,7 +21,7 @@ async function getAndShowStoriesOnStart() {
 
 function generateStoryMarkup(story) {
   // console.debug("generateStoryMarkup", story);
-  console.log('generateStoryMarkup ran. story=', story);
+
   const hostName = story.getHostName();
   return $(`
       <li id="${story.storyId}">
@@ -63,7 +63,7 @@ function findStory(currStar) {
 }
 
 /** Takes in the i tag of currStar and the targStory instance,
- *  finds out the currStar's second class. If it is 'fa-star', 
+ *  finds out the currStar's second class. If it is 'fa-star',
  *  invokes updateAndAddFavorite, it not, invokes updateAndUnFavorite.
  */
 function favOrUnfav(currStar, targStory) {

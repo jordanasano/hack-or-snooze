@@ -11,6 +11,10 @@ function navAllStories(evt) {
   evt.preventDefault();
   hidePageComponents();
   putStoriesOnPage();
+  $(".stories-container").show()
+  $(".stories-container").css("display","block")
+
+
 }
 
 $body.on("click", "#nav-all", navAllStories);
@@ -46,3 +50,13 @@ function navSubmitClick() {
 }
 
 $("#nav-submit-story").on("click", navSubmitClick);
+
+
+function navFavoriteClick(){
+  $(".stories-container").hide()
+  $(".favorites-container").show()
+
+
+}
+
+$("#nav-favorites").on("click",navFavoriteClick)
