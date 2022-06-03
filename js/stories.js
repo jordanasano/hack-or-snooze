@@ -38,12 +38,69 @@ function generateStoryMarkup(story) {
 
 
 function starHandleClick(evt) {
-  let starClass =evt.target.classList[1]
-  starClass === "fa-star" ? story.addfavorite()
+  const currStar = evt.target;
+  const targStory = findStory(currStar);
+  favOrUnfav(currStar, targStory);
 
 }
 
-$("#all-stories-list").on("click",".far",starHandleClick)
+/** Takes in the i tag of currStar, finds the clost li's id, then
+ *  finds the story instance with that id and returns it.
+ */
+function findStory(currStar) {
+  const currStoryId = currStar.closest('li').id;
+  let targStory;
+  console.log("currStoryId = ", currStoryId);
+
+  for (let story of storyList.stories) {
+    if (story.storyId === currStoryId) {
+      targStory = story;
+    }
+  }
+
+  console.log(targStory);
+  return targStory;
+}
+
+/** Takes in the i tag of currStar and the targStory instance,
+ *  finds out the currStar's second class. If it is 'fa-star', 
+ *  invokes updateAndAddFavorite, it not, invokes updateAndUnFavorite.
+ */
+function favOrUnfav(currStar, targStory) {
+  const starClass = currStar.classList[0];
+  starClass === 'far' ?
+    updateAndAddFavorite(currStar, targStory)
+    : updateAndUnFavorite(currStar, targStory);
+}
+
+/** Takes in the i tag of currStar and the targStory instance,
+ *  invokes addFavorite and updateStar.
+  */
+function updateAndAddFavorite(currStar, targStory) {
+  currentUser.addFavorite(targStory);
+  updateStar(currStar);
+}
+
+/** Takes in the i tag of currStar and the targStory instance,
+ *  invokes unFavorite and updateStar.
+  */
+function updateAndUnFavorite(currStar, targStory) {
+  currentUser.unFavorite(targStory);
+  updateStar(currStar);
+}
+
+/** Takes in the i tag of currStar and toggles the star
+ *  between solid or empty.
+ */
+function updateStar(currStar) {
+  const starClass = currStar.classList[0];
+  starClass === 'far' ?
+    $(currStar).removeClass("far fa-star").addClass("fas fa-star")
+    : $(currStar).removeClass("fas fa-star").addClass("far fa-star");
+}
+
+
+$("#all-stories-list").on("click", [".far", ".fas"], starHandleClick);
 
 /** Gets list of stories from server, generates their HTML, and puts on page. */
 

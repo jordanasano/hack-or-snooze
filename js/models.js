@@ -172,7 +172,7 @@ class User {
     );
   }
 
-  addFavorite(story){
+  addFavorite(story) {
     const userToken = currentUser.loginToken;
     const storyId = story.storyId;
     const username = currentUser.username;
@@ -181,7 +181,7 @@ class User {
     console.log('username in addFavorite = ', username);
     const post_favorite_url = `https://hack-or-snooze-v3.herokuapp.com/users/${username}/favorites/${storyId}`;
 
-    axios.post(post_favorite_url, {"token": userToken});
+    axios.post(post_favorite_url, { "token": userToken });
     this.favorites.unshift(story);
   }
 
@@ -195,7 +195,7 @@ class User {
     const un_favorite_url = `https://hack-or-snooze-v3.herokuapp.com/users/${username}/favorites/${storyId}?token=${userToken}`;
 
     axios.delete(un_favorite_url);
-    currentUser.favorites = currentUser.favorites.filter(story=>story.storyId!==storyId)
+    currentUser.favorites = currentUser.favorites.filter(story => story.storyId !== storyId)
   }
 
   /** When we already have credentials (token & username) for a user,
