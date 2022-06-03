@@ -36,6 +36,23 @@ function generateStoryMarkup(story) {
     `);
 }
 
+function generateFavoriteMarkup(story) {
+  // console.debug("generateStoryMarkup", story);
+
+  const hostName = story.getHostName();
+  return $(`
+      <li id="${story.storyId}">
+        <i class="fas fa-star"></i>
+        <a href="${story.url}" target="a_blank" class="story-link">
+          ${story.title}
+        </a>
+        <small class="story-hostname">(${hostName})</small>
+        <small class="story-author">by ${story.author}</small>
+        <small class="story-user">posted by ${story.username}</small>
+      </li>
+    `);
+}
+
 
 function starHandleClick(evt) {
   const currStar = evt.target;
@@ -102,11 +119,27 @@ function updateStar(currStar) {
 
 $("#all-stories-list").on("click", [".far", ".fas"], starHandleClick);
 
+/** Gets list of favorites from server, generates their HTML, and puts on page. */
+
+function putFavoritesOnPage() {
+  console.debug("putFavoritesOnPage");
+  const favoritesList = currentUser.favorites;
+  $("#all-favorites-list").empty();
+
+  // loop through all of our stories and generate HTML for them
+  for (let favorite of favoritesList) {
+    const $favorite = generateFavoriteMarkup(favorite);
+    $("#all-favorites-list").append($favorite);
+  }
+
+  $favoritesContainer.show();
+}
+
 /** Gets list of stories from server, generates their HTML, and puts on page. */
 
 function putStoriesOnPage() {
   console.debug("putStoriesOnPage");
-
+  $("#favorites-loading-msg").hide();
   $allStoriesList.empty();
 
   // loop through all of our stories and generate HTML for them
@@ -138,3 +171,5 @@ async function getAndDisplayStory(evt) {
 }
 
 $("#add-story-form").on('submit', getAndDisplayStory);
+
+

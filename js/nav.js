@@ -55,8 +55,7 @@ $("#nav-submit-story").on("click", navSubmitClick);
 function navFavoriteClick(){
   $(".stories-container").hide()
   $(".favorites-container").show()
-
-
+  putFavoritesOnPage();
 }
 
 $("#nav-favorites").on("click",navFavoriteClick)
