@@ -195,7 +195,7 @@ class User {
     const un_favorite_url = `https://hack-or-snooze-v3.herokuapp.com/users/${username}/favorites/${storyId}?token=${userToken}`;
 
     axios.delete(un_favorite_url);
-    // update currentUser.favorite
+    currentUser.favorites = currentUser.favorites.filter(story=>story.storyId!==storyId)
   }
 
   /** When we already have credentials (token & username) for a user,
