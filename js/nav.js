@@ -46,16 +46,20 @@ function updateNavOnLogin() {
  *  the #add-story-form.
  */
 function navSubmitClick() {
+  hidePageComponents()
   $("#add-story-form").show();
+  $addstoryinput.show()
 }
 
 $("#nav-submit-story").on("click", navSubmitClick);
 
 
 function navFavoriteClick(){
-  $(".stories-container").hide()
+  hidePageComponents()
   $(".favorites-container").show()
   putFavoritesOnPage();
+
+
 }
 
 $("#nav-favorites").on("click",navFavoriteClick)
