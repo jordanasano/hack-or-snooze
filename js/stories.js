@@ -43,8 +43,8 @@ function generateStoryMarkup(story) {
  *  Otherwise, returns 'far fa-star'.
  */
 function generateStarClass(story) {
-  for(let favorite of currentUser.favorites) {
-    if(favorite.storyId === story.storyId) {
+  for (let favorite of currentUser.favorites) {
+    if (favorite.storyId === story.storyId) {
       return 'fas fa-star';
     }
   }
@@ -52,24 +52,8 @@ function generateStarClass(story) {
   return 'far fa-star';
 }
 
-function generateFavoriteMarkup(story) {
-  // console.debug("generateStoryMarkup", story);
 
-  const hostName = story.getHostName();
-  return $(`
-      <li id="${story.storyId}">
-        <i class="fas fa-star"></i>
-        <a href="${story.url}" target="a_blank" class="story-link">
-          ${story.title}
-        </a>
-        <small class="story-hostname">(${hostName})</small>
-        <small class="story-author">by ${story.author}</small>
-        <small class="story-user">posted by ${story.username}</small>
-      </li>
-    `);
-}
-
-
+/** finds story based on star click calls fav or unfav */
 function starHandleClick(evt) {
   const currStar = evt.target;
   const targStory = findStory(currStar);
@@ -87,10 +71,10 @@ function findStory(currStar) {
   for (let story of storyList.stories) {
     if (story.storyId === currStoryId) {
       targStory = story;
-    } 
+    }
   }
 
-  if(targStory === undefined) {
+  if (targStory === undefined) {
     for (let story of currentUser.favorites) {
       if (story.storyId === currStoryId) {
         targStory = story;
@@ -103,7 +87,7 @@ function findStory(currStar) {
 }
 
 /** Takes in the i tag of currStar and the targStory instance,
- *  finds out the currStar's second class. If it is 'fa-star',
+ *  finds out the currStar's second class. If it is 'far',
  *  invokes updateAndAddFavorite, it not, invokes updateAndUnFavorite.
  */
 function favOrUnfav(currStar, targStory) {
@@ -142,6 +126,7 @@ function updateStar(currStar) {
 
 $("#all-stories-list").on("click", [".far", ".fas"], starHandleClick);
 
+/** takes in evt finds story and updates and unfavorites from favorites page */
 function favoritesStarHandleClick(evt) {
   const currStar = evt.target;
   const targStory = findStory(currStar);
@@ -159,7 +144,7 @@ function putFavoritesOnPage() {
 
   // loop through all of our stories and generate HTML for them
   for (let favorite of favoritesList) {
-    const $favorite = generateFavoriteMarkup(favorite);
+    const $favorite = generateStoryMarkup(favorite);
     $("#all-favorites-list").append($favorite);
   }
 
@@ -196,11 +181,9 @@ async function getAndDisplayStory(evt) {
 
   const newStoryInstance = await storyList.addStory(currentUser, { author, title, url });
   storyList.stories.unshift(newStoryInstance);
-  console.log("storyList after addStory=", storyList)
+  console.log("storyList after addStory=", storyList);
 
   putStoriesOnPage();
 }
 
 $("#add-story-form").on('submit', getAndDisplayStory);
-
-

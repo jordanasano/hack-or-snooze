@@ -1,8 +1,8 @@
 "use strict";
 
-const UPDATE_FAVORITE = "https://hack-or-snooze-v3.herokuapp.com/users/username/favorites/storyId"
+const UPDATE_FAVORITE = "https://hack-or-snooze-v3.herokuapp.com/users/username/favorites/storyId";
 const BASE_URL = "https://hack-or-snooze-v3.herokuapp.com";
-const POST_STORY_URL = "https://hack-or-snooze-v3.herokuapp.com/stories"
+const POST_STORY_URL = "https://hack-or-snooze-v3.herokuapp.com/stories";
 
 /******************************************************************************
  * Story: a single story in the system
@@ -171,7 +171,8 @@ class User {
       response.data.token
     );
   }
-
+  /** takes in story instance and adds story instance to currentUser favorites
+   *  array and saves user story favorites to server */
   addFavorite(story) {
     const userToken = currentUser.loginToken;
     const storyId = story.storyId;
@@ -184,7 +185,8 @@ class User {
     axios.post(post_favorite_url, { "token": userToken });
     this.favorites.unshift(story);
   }
-
+  /** takes in story instance and removes story instance from currentUser
+   *  favorites array and removes user story favorite from server */
   unFavorite(story) {
     console.log("story in unFavorite = ", story);
     const userToken = currentUser.loginToken;
@@ -196,7 +198,7 @@ class User {
     const un_favorite_url = `https://hack-or-snooze-v3.herokuapp.com/users/${username}/favorites/${storyId}?token=${userToken}`;
 
     axios.delete(un_favorite_url);
-    currentUser.favorites = currentUser.favorites.filter(story => story.storyId !== storyId)
+    currentUser.favorites = currentUser.favorites.filter(story => story.storyId !== storyId);
   }
 
   /** When we already have credentials (token & username) for a user,

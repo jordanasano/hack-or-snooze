@@ -11,8 +11,8 @@ function navAllStories(evt) {
   evt.preventDefault();
   hidePageComponents();
   putStoriesOnPage();
-  $(".stories-container").show()
-  $(".stories-container").css("display","block")
+  $(".stories-container").show();
+  $(".stories-container").css("display", "block");
 
 
 }
@@ -46,20 +46,20 @@ function updateNavOnLogin() {
  *  the #add-story-form.
  */
 function navSubmitClick() {
-  hidePageComponents()
+  hidePageComponents();
   $("#add-story-form").show();
-  $addstoryinput.show()
+  $addstoryinput.show();
 }
 
 $("#nav-submit-story").on("click", navSubmitClick);
 
-
-function navFavoriteClick(){
-  hidePageComponents()
-  $(".favorites-container").show()
+/** calls hidepagecomponents which hides everything on page then shows
+ * favorites container then fills favorites container by calling
+ * put favorites on page */
+function navFavoriteClick() {
+  hidePageComponents();
+  $(".favorites-container").show();
   putFavoritesOnPage();
-
-
 }
 
-$("#nav-favorites").on("click",navFavoriteClick)
+$("#nav-favorites").on("click", navFavoriteClick);
