@@ -23,9 +23,11 @@ function generateStoryMarkup(story) {
   // console.debug("generateStoryMarkup", story);
 
   const hostName = story.getHostName();
+  const starClass = generateStarClass(story);
+
   return $(`
       <li id="${story.storyId}">
-        <i class="far fa-star"></i>
+        <i class="${starClass}"></i>
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
@@ -34,6 +36,20 @@ function generateStoryMarkup(story) {
         <small class="story-user">posted by ${story.username}</small>
       </li>
     `);
+}
+
+/** Takes in a story instance, checks if that story is in
+ *  currentUser.favorites. If so, returns 'fas fa-star'.
+ *  Otherwise, returns 'far fa-star'.
+ */
+function generateStarClass(story) {
+  for(let favorite of currentUser.favorites) {
+    if(favorite.storyId === story.storyId) {
+      return 'fas fa-star';
+    }
+  }
+
+  return 'far fa-star';
 }
 
 function generateFavoriteMarkup(story) {
@@ -58,7 +74,6 @@ function starHandleClick(evt) {
   const currStar = evt.target;
   const targStory = findStory(currStar);
   favOrUnfav(currStar, targStory);
-
 }
 
 /** Takes in the i tag of currStar, finds the clost li's id, then
@@ -72,6 +87,14 @@ function findStory(currStar) {
   for (let story of storyList.stories) {
     if (story.storyId === currStoryId) {
       targStory = story;
+    } 
+  }
+
+  if(targStory === undefined) {
+    for (let story of currentUser.favorites) {
+      if (story.storyId === currStoryId) {
+        targStory = story;
+      }
     }
   }
 
@@ -118,6 +141,14 @@ function updateStar(currStar) {
 
 
 $("#all-stories-list").on("click", [".far", ".fas"], starHandleClick);
+
+function favoritesStarHandleClick(evt) {
+  const currStar = evt.target;
+  const targStory = findStory(currStar);
+  console.log("targStory in favoritesStarHandleClick = ", targStory);
+  updateAndUnFavorite(currStar, targStory);
+}
+$("#all-favorites-list").on("click", ".fas", favoritesStarHandleClick);
 
 /** Gets list of favorites from server, generates their HTML, and puts on page. */
 

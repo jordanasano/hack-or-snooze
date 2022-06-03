@@ -186,6 +186,7 @@ class User {
   }
 
   unFavorite(story) {
+    console.log("story in unFavorite = ", story);
     const userToken = currentUser.loginToken;
     const storyId = story.storyId;
     const username = currentUser.username;
