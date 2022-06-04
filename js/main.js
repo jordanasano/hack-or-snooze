@@ -4,24 +4,24 @@
 
 const $body = $("body");
 
-const $addstoryform = $("#add-story-form");
-const $addstoryinput = $(".add-story-input");
+const $addStoryForm = $("#add-story-form");
+const $addStoryInput = $(".add-story-input");
 const $storiesLoadingMsg = $("#stories-loading-msg");
 const $allStoriesList = $("#all-stories-list");
 
-const $allfavoriteslist = $("#all-favorites-list");
+const $allFavoritesList = $("#all-favorites-list");
 
 const $loginForm = $("#login-form");
 const $signupForm = $("#signup-form");
 
 const $navLogin = $("#nav-login");
 const $navUserProfile = $("#nav-user-profile");
-const $navsubmitstory = $("#nav-submit-story");
+const $navSubmitStory = $("#nav-submit-story");
 const $navLogOut = $("#nav-logout");
-const $mainnavlinks = $(".main-nav-links");
-const $navfavorites = $("#nav-favorites");
+const $mainNavLinks = $(".main-nav-links");
+const $navFavorites = $("#nav-favorites");
 
-const $storiescontainer = $(".stories-container");
+const $storiesContainer = $(".stories-container");
 const $favoritesContainer = $(".favorites-container");
 
 /** To make it easier for individual components to show just themselves, this
@@ -35,7 +35,7 @@ function hidePageComponents() {
     $loginForm,
     $signupForm,
     $favoritesContainer,
-    $addstoryinput
+    $addStoryInput
 
   ];
   components.forEach(c => c.hide());

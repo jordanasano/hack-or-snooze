@@ -2,7 +2,6 @@
 
 // This is the global list of the stories, an instance of StoryList
 let storyList;
-
 /** Get and show stories when site first loads. */
 
 async function getAndShowStoriesOnStart() {
@@ -137,19 +136,19 @@ function favoritesStarHandleClick(evt) {
   console.log("targStory in favoritesStarHandleClick = ", targStory);
   updateAndUnFavorite(currStar, targStory);
 }
-$allfavoriteslist.on("click", ".fas", favoritesStarHandleClick);
+$allFavoritesList.on("click", ".fas", favoritesStarHandleClick);
 
 /** Gets list of favorites from server, generates their HTML, and puts on page. */
 
 function putFavoritesOnPage() {
   console.debug("putFavoritesOnPage");
   const favoritesList = currentUser.favorites;
-  $allfavoriteslist.empty();
+  $allFavoritesList.empty();
 
   // loop through all of our stories and generate HTML for them
   for (let favorite of favoritesList) {
     const $favorite = generateStoryMarkup(favorite);
-    $allfavoriteslist.append($favorite);
+    $allFavoritesList.append($favorite);
   }
 
   $favoritesContainer.show();
@@ -191,4 +190,4 @@ async function getAndDisplayStory(evt) {
   putStoriesOnPage();
 }
 
-$addstoryform.on('submit', getAndDisplayStory);
+$addStoryForm.on('submit', getAndDisplayStory);
